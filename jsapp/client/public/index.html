@@ -5,28 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Appointment Booking System</title>
   <link rel="stylesheet" href="index.css">
-  <script src="/client/src/index.js" defer></script>
+  <script src="home.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>Appointment Booking System</h1>
+    <h1>Book Your Doctor Appointment</h1>
     <p>Book and manage your appointments with ease.</p>
-      <div>  
-        <a href="register.html">
-          <button id="register-btn">Register</button>
-        </a>
-        <a href="index.html">
-          <button id="home-btn">Home</button>
-        </a>
-      </div>
-      <a href="account.html">
-        <button id="account-btn">Your account</button>
+    <div>  
+      <a href="register.html">
+        <button id="register-btn">Register</button>
       </a>
+      <a href="index.html">
+        <button id="home-btn">Home</button>
+      </a>
+      <a href="signin.html">
+        <button id="signin-btn">Sign In</button>
+      </a>
+    </div>
+    <div id="login-status">
+      <span id="status-text">Checking login status...</span>
+      <button id="logout-btn" style="display: none;">Log Out</button>
+    </div>    
   </header>
   <main>
     <div id="doctor-selection">
       <h2>Select a Doctor</h2>
-      
+      <button class="doctor-btn" data-doctor="Neurologist">Neurologist</button>
+      <button class="doctor-btn" data-doctor="Infectionist">Infectionist</button>
+      <button class="doctor-btn" data-doctor="Endocrinologist">Endocrinologist</button>
     </div>
+    <div id="appointment-selection" style="display:none;">
+      <h2>Select a Date & Time</h2>
+      <label for="appointment-date">Date:</label>
+      <input type="date" id="appointment-date">
+      <label for="appointment-time">Time:</label>
+      <select id="appointment-time"></select>
+      <button id="confirm-appointment">Confirm Appointment</button>
+      <p id="appointment-message"></p>
+    </div>
+  </main>
 </body>
 </html>
