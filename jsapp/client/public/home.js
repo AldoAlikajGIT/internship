@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+                full_name: userFullName,
                 email: userEmail,
                 doctor: selectedDoctor,
                 appointment_date: date,
