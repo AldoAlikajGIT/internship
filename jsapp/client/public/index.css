@@ -98,7 +98,105 @@ main {
   align-items: center;
   gap: 30px; /* Space between elements */
   flex-grow: 1; /* Take up available space, pushing footer down */
+  padding: 20px;
 }
+
+/* Doctor selection styling */
+#doctor-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#doctor-selection h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.doctor-btn {
+  width: 200px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.doctor-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.doctor-btn:active {
+  transform: scale(0.95);
+}
+
+/* Appointment selection styling */
+#appointment-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+#appointment-selection h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+#confirm-appointment {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+#confirm-appointment:hover {
+  background-color: #218838;
+}
+
+#confirm-appointment:active {
+  transform: scale(0.95);
+}
+
+/* Appointment message styling */
+#appointment-message {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 20px;
+}
+
 
 h2,h3{
   font-size: 1.8rem;
