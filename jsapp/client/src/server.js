@@ -55,14 +55,13 @@ app.post('/book-appointment', (req, res) => {
 
     // Log incoming data for debugging
     console.log("Received appointment request:");
-    console.log("Full Name:", full_name);
     console.log("Email:", email);
     console.log("Doctor:", doctor);
     console.log("Appointment Date:", appointment_date);
     console.log("Appointment Time:", appointment_time);
 
     // Ensure all fields are provided
-    if (!email || !full_name || !doctor || !appointment_date || !appointment_time) {
+    if (!email || !doctor || !appointment_date || !appointment_time) {
         return res.status(400).json({ success: false, message: "All fields are required." });
     }
 
