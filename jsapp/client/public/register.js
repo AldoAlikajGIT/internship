@@ -25,8 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
   
-      // Show loading indicator (optional, not included here)
-  
       try {
   
         // API call to register user
@@ -48,6 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
           // Handle success
           successMessageDiv.textContent =
             "Registration successful! Please check your email for confirmation.";
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
         } else {
           // Handle error
           throw new Error(
