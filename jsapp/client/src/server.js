@@ -12,9 +12,9 @@ app.use(express.json());
 // MySQL Database Connection
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'Aldo17%', 
-    database: 'internship'
+    user: 'user',
+    password: 'password',  /* i have not added the correct information for privacy reasosn*/
+    database: 'database'
 });
 
 db.connect(err => {
@@ -25,7 +25,7 @@ db.connect(err => {
     console.log('Connected to MySQL Database');
 });
 
-// User Sign-in
+// User Sign-in with role check
 app.post('/signin', async (req, res) => {
     const { full_name, password } = req.body;
 
@@ -46,19 +46,45 @@ app.post('/signin', async (req, res) => {
             return res.status(400).json({ success: false, message: "Incorrect password." });
         }
 
-        res.json({ success: true, email: user.email, message: "Sign-in successful!" });
+        res.json({ 
+            success: true, 
+            email: user.email, 
+            role: user.role,  // ✅ Send role to frontend
+            message: "Sign-in successful!" 
+        });
     });
 });
 
-app.post('/book-appointment', (req, res) => {
-    const { email, full_name, doctor, appointment_date, appointment_time } = req.body;
+app.post("/register", async (req, res) => {
+    try {
+        const { full_name, email, password } = req.body;
 
-    // Log incoming data for debugging
-    console.log("Received appointment request:");
-    console.log("Email:", email);
-    console.log("Doctor:", doctor);
-    console.log("Appointment Date:", appointment_date);
-    console.log("Appointment Time:", appointment_time);
+        if (!full_name || !email || !password) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        // Hash password (if using bcrypt)
+        const bcrypt = require("bcrypt");
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Insert into MySQL
+        const sql = "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)";
+        db.query(sql, [full_name, email, hashedPassword], (err, result) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: "Database error" });
+            }
+            res.status(201).json({ message: "User registered successfully" });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+app.post('/book-appointment', (req, res) => {
+    const { email, doctor, appointment_date, appointment_time } = req.body;
 
     // Ensure all fields are provided
     if (!email || !doctor || !appointment_date || !appointment_time) {
@@ -106,6 +132,23 @@ app.post('/book-appointment', (req, res) => {
     });
 });
 
+// Fetch Appointments
+app.get('/admin/appointments', (req, res) => {
+    const query = `
+        SELECT users.full_name, users.email, appointments.doctor, appointments.appointment_date, appointments.appointment_time
+        FROM appointments
+        JOIN users ON appointments.user_id = users.id
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error("Database error fetching appointments:", err);
+            return res.status(500).json({ success: false, message: "Database error." });
+        }
+
+        res.json({ success: true, appointments: results });
+    });
+});
 
 // Start Server
 app.listen(PORT, () => {
